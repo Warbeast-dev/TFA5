@@ -1,0 +1,10 @@
+# InfinityFree domain-root deployment: upload this file into htdocs.
+Options -Indexes
+RewriteEngine On
+# Deny private files before routing. Public assets remain available.
+RewriteRule (^|/)\. - [F,L]
+RewriteRule ^(?:app|bootstrap|config|database|resources|routes|storage|vendor|tests|docs)(?:/|$) - [F,L,NC]
+RewriteRule ^(?:artisan|composer\.(?:json|lock)|README\.md|PREPARE-INFINITYFREE\.ps1|START-HERE\.txt)$ - [F,L,NC]
+# Do not prefix public twice on an internal rewrite.
+RewriteRule ^public(?:/|$) - [L]
+RewriteRule ^(.*)$ public/$1 [L]
